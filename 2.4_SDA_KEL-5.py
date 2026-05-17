@@ -20,9 +20,12 @@ def options (*a):
             menu += f"\n{i}  {argument}"
             i+=1
         menu+=f"\npilihan(1-{i-1}): "
-        try
-        pilihan=int(input(menu))
-        if 
+        try:
+            pilihan=int(input(menu))
+            if 0<pilihan<i:
+                break
+        except ValueError:
+            print("Input tidak valid! Coba masukan ulang.")
     return pilihan
 
 def case1():
@@ -32,10 +35,32 @@ def case1():
     return Text,terbalik
 
 def case2():
-    pass
+    Header("Balik Paragraf per baris")
+    lines=[]
+    revlines=[]
+    print("Masukan Paragraf untuk dibalik\n(ketik 'selesai' untuk mengakhiri input):\n")
+    while True:
+       baris = str(input())
+       if baris.lower() == "selesai":
+           break
+       lines.append(baris)
+       revlines.append(reverse(baris))
+    Text= "\n".join(lines)
+    terbalik="\n".join(revlines)
+    return Text,terbalik
 
 def case3():
-    pass
+    Header("Balik Seluruh Paragraf")
+    lines=[]
+    print("Masukan Paragraf untuk dibalik\n(ketik 'selesai' untuk mengakhiri input):\n")
+    while True:
+       baris = str(input())
+       if baris.lower() == "selesai":
+           break
+       lines.append(baris)
+    Text= "\n".join(lines)
+    terbalik=reverse(Text)
+    return Text,terbalik
      
 
 print('\n||| Program Pembalik String, by kelompok 5 |||')
