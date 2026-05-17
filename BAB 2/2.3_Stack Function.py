@@ -1,36 +1,60 @@
-print("=== PROGRAM TUMPUKAN ===")
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    # Push (menambahkan data)
+    def push(self, data):
+        self.stack.append(data)
+        print(f"{data} ditambahkan ke stack")
+
+    # Pop (mengambil data)
+    def pop(self):
+        if self.is_empty():
+            print("Stack kosong!")
+        else:
+            data = self.stack.pop()
+            print(f"{data} dihapus dari stack")
+            return data
+
+    # Cek kosong
+    def is_empty(self):
+        return len(self.stack) == 0
+
+    # Tampilkan isi stack
+    def display(self):
+        if self.is_empty():
+            print("Stack kosong")
+        else:
+            print("Isi stack (dari bawah ke atas):")
+            for item in self.stack:
+                print(item)
+
+
+# Program utama (dinamis)
+s = Stack()
 
 while True:
-    tumpukan = []
-    print("\nMasukkan data ke tumpukan (enter 2x untuk selesai): ")
-    while True:
-        data = input ("> ")
-        if data == "":
-            break
-        
-        tumpukan.append(data)
+    print("\n=== MENU STACK ===")
+    print("1. Push (Tambah data)")
+    print("2. Pop (Ambil data)")
+    print("3. Tampilkan stack")
+    print("4. Keluar")
 
-    #OUTPUT STACK
-    print("\nIsi tumpukan:")
+    pilihan = input("Pilih menu: ")
 
-    if not tumpukan:
-        print("Tumpukan kosong")
-    else:
-        for data in reversed(tumpukan):
-            print(data)
+    if pilihan == "1":
+        data = input("Masukkan data: ")
+        s.push(data)
 
-    while True:
-        print("\nApakah anda ingin lanjut? (yes/no)")
-        pilihan = input("> ").lower()
-        if pilihan in ['yes', 'no']:
-            break
-        print('\nMohon input "yes" or "no"')
+    elif pilihan == "2":
+        s.pop()
 
-    if pilihan == 'no':
-        print("\nTerima kasih sudah menggunakan program ini!")
+    elif pilihan == "3":
+        s.display()
+
+    elif pilihan == "4":
+        print("Program selesai")
         break
 
-   #hal-hal yang patut dierhitungkan
-   #1. apakah ingin menambahkan stack lama atau memulai stack baru saja
-   #2. apakah boleh ada duplikasi data?
-   #kalau sesuai ppt si gini doang, apakah harus lengkap dengan pop, peek, clear, remove dll dari fungsi stack?
+    else:
+        print("Pilihan tidak valid!")
