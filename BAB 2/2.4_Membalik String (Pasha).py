@@ -3,14 +3,6 @@ def Header(a):
     print(a)
     print(10*'-')
 
-
-def reverse (a):
-    rev=""
-    for i in range(len(a)):
-        rev += a[len(a)-i-1]
-        print(rev)
-    return rev
-       
 def options (*a):
     while True:
         menu="opsi:"
@@ -28,6 +20,12 @@ def options (*a):
             print("Input tidak valid! Coba masukan ulang.")
     return pilihan
 
+def reverse (a):
+    rev=""
+    for i in range(len(a)):
+        rev += a[len(a)-i-1]
+    return rev
+       
 def case1():
     Header("Balik kalimat")
     Text=str(input("Masukan Kalimat untuk dibalik:\n"))
@@ -38,13 +36,13 @@ def case2():
     Header("Balik Paragraf per baris")
     lines=[]
     revlines=[]
-    print("Masukan Paragraf untuk dibalik\n(ketik 'selesai' untuk mengakhiri input):\n")
+    print("Masukan Paragraf untuk dibalik (Enter 2x untuk selesai):\n")
     while True:
-       baris = str(input())
-       if baris.lower() == "selesai":
-           break
-       lines.append(baris)
-       revlines.append(reverse(baris))
+        baris = str(input("> "))
+        if baris == "":
+            break
+        lines.append(baris)
+        revlines.append(reverse(baris))
     Text= "\n".join(lines)
     terbalik="\n".join(revlines)
     return Text,terbalik
@@ -52,17 +50,16 @@ def case2():
 def case3():
     Header("Balik Seluruh Paragraf")
     lines=[]
-    print("Masukan Paragraf untuk dibalik\n(ketik 'selesai' untuk mengakhiri input):\n")
+    print("Masukan Paragraf untuk dibalik (Enter 2x untuk selesai):\n")
     while True:
-       baris = str(input())
-       if baris.lower() == "selesai":
-           break
-       lines.append(baris)
+        baris = str(input())
+        if baris == "":
+            break
+        lines.append(baris)
     Text= "\n".join(lines)
     terbalik=reverse(Text)
     return Text,terbalik
      
-
 print('\n||| Program Pembalik String, by kelompok 5 |||')
 again = True
 while again:
