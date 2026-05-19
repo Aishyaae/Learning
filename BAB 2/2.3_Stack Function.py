@@ -1,60 +1,52 @@
+# Stack sederhana
+
 class Stack:
     def __init__(self):
-        self.stack = []
+        self.data = []
 
-    # Push (menambahkan data)
-    def push(self, data):
-        self.stack.append(data)
-        print(f"{data} ditambahkan ke stack")
+    def tambah(self, isi):
+        self.data.append(isi)
+        print("Data ditambahkan")
 
-    # Pop (mengambil data)
-    def pop(self):
-        if self.is_empty():
-            print("Stack kosong!")
-        else:
-            data = self.stack.pop()
-            print(f"{data} dihapus dari stack")
-            return data
-
-    # Cek kosong
-    def is_empty(self):
-        return len(self.stack) == 0
-
-    # Tampilkan isi stack
-    def display(self):
-        if self.is_empty():
+    def hapus(self):
+        if self.data == []:
             print("Stack kosong")
         else:
-            print("Isi stack (dari bawah ke atas):")
-            for item in self.stack:
-                print(item)
+            keluar = self.data.pop()
+            print(keluar, "dihapus")
 
+    def tampil(self):
+        if self.data == []:
+            print("Stack kosong")
+        else:
+            print("Isi Stack:")
+            for i in reversed(self.data):
+                print(i)
 
-# Program utama (dinamis)
-s = Stack()
+stack = Stack()
 
 while True:
-    print("\n=== MENU STACK ===")
-    print("1. Push (Tambah data)")
-    print("2. Pop (Ambil data)")
+    print("\n=== MENU ===")
+    print("1. Tambah data")
+    print("2. Hapus data")
     print("3. Tampilkan stack")
     print("4. Keluar")
 
-    pilihan = input("Pilih menu: ")
+    pilih = input("Pilih menu: ")
 
-    if pilihan == "1":
+    if pilih == "1":
         data = input("Masukkan data: ")
-        s.push(data)
+        stack.tambah(data)
 
-    elif pilihan == "2":
-        s.pop()
+    elif pilih == "2":
+        stack.hapus()
 
-    elif pilihan == "3":
-        s.display()
+    elif pilih == "3":
+        stack.tampil()
 
-    elif pilihan == "4":
+    elif pilih == "4":
         print("Program selesai")
         break
 
     else:
-        print("Pilihan tidak valid!")
+        print("Pilihan salah")
