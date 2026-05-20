@@ -8,28 +8,28 @@ def push():
             break
         
         tumpukan.append(data)
- 
+
 def pop():
-    print("\nBerapa banyak data terakhir yang ingin kamu hapus: ")
-    jumlah = int(input("> "))
-    for _ in range(min(jumlah, len(tumpukan))):
-        tumpukan.pop()
-    print(f"{jumlah} data terakhir telah dihapus dari tumpukan.")
+    if tumpukan:
+        terhapus = tumpukan.pop()
+        print(f"'{terhapus}' telah dihapus dari tumpukan.")
+    else:
+        print("Tumpukan kosong. Tidak bisa menghapus data")
 
 def stack():
     print("\nIsi tumpukan:")
     banyak = len(tumpukan)
     if not tumpukan:
-        print("Tumpukan kosong")
+        print("| Tumpukan kosong. Tidak ada yang bisa ditampilkan")
     else:
         for data in reversed(tumpukan[:kapasitas]):
             print(data)
         if banyak < kapasitas:
-            print(f"Masih ada {kapasitas-banyak} slot tersisa di tumpukan!")
+            print(f"| Terdapat {kapasitas-banyak} slot tersisa di tumpukan!")
         elif banyak == kapasitas:
-            print("Kapasitas tumpukan sudah penuh!")
+            print("| Kapasitas tumpukan sudah penuh!")
         else:
-            print(f"Input melebihi kapasitas data! {banyak-kapasitas} data terakhir tidak bisa masuk.")
+            print(f"| Input melebihi kapasitas data! {banyak-kapasitas} data terakhir tidak bisa masuk.")
             tumpukan.pop()
 
 def choice():
