@@ -1,4 +1,4 @@
-print("=== PROGRAM ANTREAN ===")
+print("=== PROGRAM ANTREAN DENGAN KAPASITAS===")
 
 def add():
     print("\nMasukkan data ke antrean (enter 2x untuk selesai): ")
@@ -15,41 +15,44 @@ def delete():
     antrean.remove(nama)
     print(f"'{nama}' telah dihapus dari antrean.")
 
-def queue():
-    banyak = len(antrean)
-
+def queue_input():
     print("\nIsi antrean sesuai urutan input:")
     if not antrean:
         print("Antrean kosong")
     else:
-        data_tampil = antrean[:kapasitas]
-        print(" - ".join(data_tampil))
-        # for data in (antrean[:kapasitas]):
-        #     print(data)
+        nomor = 1
+        for i in antrean[:kapasitas]:
+            print(f"{nomor}.{i}")
+            nomor += 1
 
-    print("Isi antrean yang sudah diurutkan:")
+def queue_abjad():
+    print("\nIsi antrean yang sudah diurutkan:")
     if not antrean:
         print("Antrean kosong")
     else:
-        data_urut = sorted(antrean[:kapasitas])
-        print(" - ".join(data_urut))
-        # for data in sorted(antrean[:kapasitas]):
-        #     print(data)
+        nomor = 1
+        for i in sorted(antrean[:kapasitas]):
+            print(f"{nomor}. {i}")
+            nomor += 1
 
+def kondisi():
+    banyak = len(antrean)
+    
     if banyak < kapasitas:
-        print(f"\nMasih ada {kapasitas-banyak} slot tersisa di antrean!")
+        print(f"|| Masih ada {kapasitas-banyak} slot tersisa di antrean!")
     elif banyak == kapasitas:
-        print("\nKapasitas antrean sudah penuh!")
+        print("|| Kapasitas antrean sudah penuh!")
     else:
-        print(f"\nInput melebihi kapasitas data! {banyak-kapasitas} data terakhir tidak bisa masuk.")
+        print(f"|| Input melebihi kapasitas data! {banyak-kapasitas} data terakhir tidak bisa masuk.")
         del antrean[kapasitas:]
 
 def choice():
     print("\n0. Sudah selesai")
     print("1. Tambah data")
     print("2. Hapus data")
-    print("3. Tampilkan data")
-    print ("Pilih langkah anda selanjutnya (0-3): ")
+    print("3. Tampilkan data (urutan input)")
+    print("4. Tampilkan data (urutan abjad)")
+    print ("Pilih langkah anda selanjutnya (0-4): ")
 
 
 while True:
@@ -69,7 +72,11 @@ while True:
         elif pilihan == "2":
             delete()
         elif pilihan == "3":
-            queue()
+            queue_input()
+            kondisi()
+        elif pilihan == "4":
+            queue_abjad()
+            kondisi()
         else:
             print("Pilihan gak valid. Coba lagi")
 
