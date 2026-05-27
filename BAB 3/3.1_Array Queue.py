@@ -33,9 +33,9 @@ def main():
         Jenis = options("Queue Berbatas","Queue Tidak Berbatas","Tutup Program")
         match Jenis:
             case 1:
-                Code_Sakhinah()
+                again=Code_Sakhinah()
             case 2:
-                Code_Pasha()
+                again=Code_Pasha()
             case 3:
                 again=False
     print("Menutup Program...")
@@ -55,10 +55,9 @@ def Code_Sakhinah():
                 dequeue(n,queue)
             case 3:
                 Code_Pasha()
-                break
+                return False
             case 4:
-                q=False
-                break
+                return False
 
 def enqueue(n,queue):
     if queue.count(0)==0:
@@ -101,9 +100,9 @@ def Code_Pasha():
                 keluar_tak_berbatas(antrian)
             case 3:
                 Code_Sakhinah()
-                break
+                return False
             case 4:
-                break
+                return False
         
 def tambah_tak_berbatas(a):
     Header("Menambah Data")
