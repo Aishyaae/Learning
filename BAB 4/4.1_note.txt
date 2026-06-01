@@ -1,0 +1,10 @@
+node chain done.
+None is just like False. so While can use ANYTHING
+while haha
+while hihi
+until haha or hihi == None
+
+https://www.geeksforgeeks.org/python/python-classes-and-objects/ 
+Understanding Class, Init, Str. 
+THIS IS PROOF I LEARN MANUALLY. FUXK AI.
+
