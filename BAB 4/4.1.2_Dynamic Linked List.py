@@ -73,19 +73,18 @@ class LinkedList:
             i+=1
         return i
 
-
 def main ():
     print('\n||| Program Linked List, by kelompok 5 |||')
-    head=LinkedList()
+    ll=LinkedList()
     while True:
         Header("Menu Utama")
-        head.display()
+        ll.display()
         pilih = options("Link Baru","Hapus Link","Tutup Program")
         match pilih:
             case 1:
-                New(head)
+                New(ll)
             case 2:
-                Del(head)
+                Del(ll)
             case 3:
                 break
     print("Menutup Program...")
@@ -130,9 +129,6 @@ def Del(a):
         except ValueError:
             print("Input tidak valid! Coba masukan ulang.")
     a.cut(index)
-
-
-    
 
 main()
 
