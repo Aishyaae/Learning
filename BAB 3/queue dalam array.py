@@ -1,47 +1,130 @@
+from collections import deque
+# Konsistensi design. 
+def Header(a):
+    print(10*'-')
+    print(a)
+    print(10*'-')
 
-n=int (input ("masukkan ukuran array:"))
-queue=[0]*n
+def options (*a):
+    while True:
+        menu="opsi:"
+        valid=[]
+        i=1
+        for argument in a:
+            menu += f"\n{i}  {argument}"
+            i+=1
+        menu+=f"\npilihan(1-{i-1}): "
+        try:
+            pilihan=int(input(menu))
+        except ValueError:
+            print("\nInput tidak valid! Coba masukan ulang.\n")
+        if 0<pilihan<i:
+            break
+        else:
+            print("\nInput tidak valid! Coba masukan ulang.\n")
+    return pilihan
 
-print("1.Enqueue")
-print("2.dequeue")
-print("3.Tampilkan Data")
-print("4.Keluar Dari Program")
+# Layer 1
+def main():
+    print('\n||| Program Array Queue, by kelompok 5 |||')
+    again = True
+    while again:
+        Header("Pilih Jenis Queue")
+        Jenis = options("Queue Berbatas","Queue Tidak Berbatas","Tutup Program")
+        match Jenis:
+            case 1:
+                again=Code_Sakhinah()
+            case 2:
+                again=Code_Pasha()
+            case 3:
+                again=False
+    print("Menutup Program...")
 
-def enqueue():
-    if queue.count(0)==0:
+# layer 2
+def Code_Sakhinah():
+    n=int (input ("masukkan ukuran array: "))
+    queue =[]
+    while True:
+        Header("Queue Terbatas, by Sakinah")
+        display(queue)
+        Jenis = options("Enqueue","dequeue","Ganti Jenis Queue","Kembali")
+        match Jenis:
+            case 1:
+                enqueue(n,queue)
+            case 2:
+                dequeue(n,queue)
+            case 3:
+                Code_Pasha()
+                return False
+            case 4:
+                return False
+
+def enqueue(n,queue):
+    if len(queue) == n:
         print("queue overflow")
     else:
-        top=int(input("masukkan data yg ingin ditambahkan:"))
-        for i in range (0,n):
-            if queue[i]==0:
-                queue[i]=top
-                break
+        top = int(input("Masukkan data: "))
+        queue.append(top)
 
-def dequeue():
-    if queue.count(0) == len(queue):
+def dequeue(n,queue):
+    if len(queue) == 0:
         print("queue underflow")
     else:
-        for i in range(0,n):
-            if queue[i] != 0:
-                queue[i] = 0
-                break
+        queue.pop(0)
 
-def display():
+def display(queue):
     for i in queue:
-        if i!=0:
-            print(i)
+        print(i)
 
-while True:
-    pilihan=int(input("masukkan pilihan:"))
-    if pilihan == 1:
-        enqueue()
-    elif pilihan == 2:
-        dequeue()
-    elif pilihan == 3:
-        display()
-    elif pilihan == 4:
-        print("Keluar")
-        break
-    else:
-        print("invalid number")
+def Code_Pasha():
+    antrian=deque()
+    while True:
+        Header("Queue Tak Terbatas, by Pasha")
+        print (status(antrian))
+        Jenis = options("Masukan data ke Queue","Keluarkan data dari Queue","Ganti Jenis Queue","Kembali")
+        match Jenis:
+            case 1:
+                tambah_tak_berbatas(antrian)
+            case 2:
+                keluar_tak_berbatas(antrian)
+            case 3:
+                Code_Sakhinah()
+                return False
+            case 4:
+                return False
+        
+def tambah_tak_berbatas(a):
+    Header("Menambah Data")
+    while True:
+        try:
+            n=int(input("Banyak Data untuk dimasukan: "))
+            break
+        except ValueError:
+            print("\nInput tidak valid! Coba masukan ulang.\n")
+    for i in range(n):
+        while True:
+            data=str(input(f"{i+1}/{n}: "))
+            if data!="":
+                break
+            print ("Mohon Masukan data🙏🏻")
+        a.append(data)
 
+def keluar_tak_berbatas(a):
+    if len(a)==0:
+        print("Underflow (Queue Kosong)")
+        return
+    Header("Mengurangi Data")
+    n=int(input(f"Banyak Data Tersedia: {len(a)}\nBanyak Data untuk dikeluarkan: "))
+    for i in range(n):
+        print(f"{i}/{n} Data terhapus: ",a.popleft())
+
+def status(a):
+    teks="Status:"
+    j=0
+    for i in a:
+        teks += f"\n{j+1}/{len(a)}  {a[j]}"
+        j+=1
+    print(teks)
+
+
+main()
