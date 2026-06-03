@@ -43,7 +43,7 @@ def main():
 # layer 2
 def Code_Sakhinah():
     n=int (input ("masukkan ukuran array: "))
-    queue =[0]*n
+    queue =[]
     while True:
         Header("Queue Terbatas, by Sakinah")
         display(queue)
@@ -60,32 +60,21 @@ def Code_Sakhinah():
                 return False
 
 def enqueue(n,queue):
-    if queue.count(0)==0:
+    if len(queue) == n:
         print("queue overflow")
     else:
-        top=int(input("masukkan data yg ingin ditambahkan: "))
-        for i in range (0,n):
-            if queue[i]==0:
-                queue[i]=top
-                break
+        top = int(input("Masukkan data: "))
+        queue.append(top)
 
 def dequeue(n,queue):
-    if queue.count(0) == len(queue):
+    if len(queue) == 0:
         print("queue underflow")
     else:
-        for i in range(0,n):
-            if queue[i] != 0:
-                queue[i] = 0
-                break
+        queue.pop(0)
 
 def display(queue):
-    print("status queue: ")
     for i in queue:
-        if i!=0:
-            print(i)
-
-
-
+        print(i)
 
 def Code_Pasha():
     antrian=deque()
@@ -125,7 +114,14 @@ def keluar_tak_berbatas(a):
         print("Underflow (Queue Kosong)")
         return
     Header("Mengurangi Data")
-    n=int(input(f"Banyak Data Tersedia: {len(a)}\nBanyak Data untuk dikeluarkan: "))
+    while True:
+        try:
+            n=int(input(f"Banyak Data Tersedia: {len(a)}\nBanyak Data untuk dikeluarkan: "))
+            if 0<n<=len(a):
+                break
+            print("\Masukan angka  \n")
+        except ValueError:
+            print("\nInput tidak valid! Coba masukan ulang.\n")
     for i in range(n):
         print(f"{i}/{n} Data terhapus: ",a.popleft())
 

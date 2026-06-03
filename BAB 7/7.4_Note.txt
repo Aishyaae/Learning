@@ -1,0 +1,45 @@
+Header dan Option hanyalah fungsi
+
+
+7.2 NOTES
+for i in range(1, len(arr)):
+        key = arr[i]
+        j = i - 1
+
+        # Move elements of arr[0..i-1], that are
+        # greater than key, to one position ahead
+        # of their current position
+        while j >= 0 and key < arr[j]:
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = key
+Until key is bigger then what's on the left or get to the leftmost side of the array, keep shifting to the right. then place key 
+
+7.4 NOTES
+seperti Program lainnya ada Header dan Option. sudah dijelaskan, langsung ke Node.
+Class Node ini berfungsi sebagai 
+
+Class BST,
+Mengandung Seluruh fungsi yang akan dibutuhkan.
+
+add
+
+search
+
+cut
+
+Traversals,
+curr (kependekan dari Current) akan digunakan
+
+
+
+
+self note:
+while x ,checks for general truth
+while x is not None ,checks a specific type. so it won't stop. even if x is 0, False, or an empty list []
+
+
+
+To do.
+- link list. Multi delete
+- BST. delete function

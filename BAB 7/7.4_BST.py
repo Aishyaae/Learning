@@ -41,20 +41,44 @@ class BST:
         else:
             self.recursive(self.root,data)
 
-    def recursive(self,current,data):
-        if current.data > data:
+    def recursive(self,current,dataa):
+        if current.data > dataa:
             if current.left:
-                self.recursive(current.left,data)
+                self.recursive(current.left,dataa)
                 return
-            current.left=Node(data)
-        elif current.data < data:
+            current.left=Node(dataa)
+        elif current.data < dataa:
             if current.right:
-                self.recursive(current.right,data)
+                self.recursive(current.right,dataa)
                 return
-            current.right=Node(data)
+            current.right=Node(dataa)
     
+    def search(self,curr,data,Route=""):
+        if curr==data:
+            print(f"{data} Ditemukan\n Rute: {Route} ")
+            return curr
+        elif curr>data:
+            New_Route=Route + "L"
+            return self.search(curr.left,data,New_Route)
+        elif curr>data:
+            New_Route=Route + "R"
+            return self.search(curr.right,data,New_Route)
+        
+
     def cut(self,data):
-        pass
+        print (f"Mencari {data}.....")
+        location=self.search(self.root,data)
+        print (f"Menghapus {data}.....")
+        if location.left and location.right:
+            succ=self.successor(location)
+            location.data=succ.data
+            location
+
+    def successor(self,curr):
+        curr=curr.right
+        while curr.left:
+            curr=curr.left
+        return curr
             
     def display(self):
         if not self.root:
@@ -89,6 +113,38 @@ class BST:
             i+=1
         return i
 
+    def Traversal(self):
+        if self.root:
+            print("Preorder:")
+            self.Traversal_Preorder(self.root)
+            print()
+            print("Inorder:")
+            self.Traversal_Inorder(self.root)
+            print()
+            print("Postorder:")
+            self.Traversal_Postorder(self.root)
+            print()
+            input("(tekan Enter untuk kembali ke Menu Utama)")
+        else:
+            print("Data Kosong! Silahkan isi Data.")
+
+    def Traversal_Preorder(self,curr):
+        if curr:
+            print(curr,end=" ")
+            self.Traversal_Preorder(curr.left)
+            self.Traversal_Preorder(curr.right)
+
+    def Traversal_Inorder(self,curr):
+        if curr:
+            self.Traversal_Preorder(curr.left)
+            print(curr,end=" ")
+            self.Traversal_Preorder(curr.right)
+
+    def Traversal_Postorder(self,curr):
+        if curr:
+            self.Traversal_Preorder(curr.left)
+            self.Traversal_Preorder(curr.right)
+            print(curr,end=" ")
 
 def main():
     print('\n||| Program Binary Seacrh Tree, by kelompok 5 |||')
@@ -96,13 +152,17 @@ def main():
     while True:
         Header("Menu Utama")
         root.display()
-        pilih = options("Tambah Data","Hapus Data","Tutup Program")
+        pilih = options("Tambah Data","Hapus Data","Traverse Tree","Search Data","Tutup Program")
         match pilih:
             case 1:
                 Add(root)
             case 2:
                 Del(root)
             case 3:
+                root.Traversal()
+            case 4:
+                search(root)
+            case 5:
                 break
     print("Menutup Program...")
     
@@ -117,15 +177,35 @@ def Add(a):
     print("masukkan data yg ingin ditambahkan: ")
     for i in range(n):
         while True:
-            data=str(input(f"{i+1}/{n} > "))
+            try:
+                data=int(input(f"{i+1}/{n} > "))
+            except ValueError:
+                print("Invalid Input! Mohon masukan bilangan bulat")
             if not data=="":
                 break
             print("Input Kosong! Mohon masukan data untuk ditambah.")
         a.add(data)
 
-def Del(a):
+def Del(root):
     Header("Hapus Data")
-    print("masukkan data yg ingin dihapuskan: ")
+    if not root.root:
+        print("Data Kosong! Silahkan isi Data.")
+        input("(tekan Enter untuk kembali ke Menu Utama)")
+        return
+    Header("Hapus Data")
+    data=int(input("Masukkan data yg ingin ditemukan dan hapuskan : "))
+    root.cut(data)
+    input("(tekan Enter untuk kembali ke Menu Utama)")
+    
+def search(root):
+    Header("Search Data")
+    if not root.root:
+        print("Data Kosong! Silahkan isi Data.")
+        input("(tekan Enter untuk kembali ke Menu Utama)")
+        return
+    data=int(input("Masukkan data yg ingin ditemukan: "))
+    print (f"Mencari {data}.....")
+    root.search(root.root,data)
 
 
 main()

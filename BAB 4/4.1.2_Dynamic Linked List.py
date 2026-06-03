@@ -113,7 +113,7 @@ def Del(a):
     if batas==0:
         print("Linked List kosong. Silahkan tambahkan data.")
         return
-    # while True: #GAK JADI. Niatnya supaya User dapat sekaligus hapus banyak
+    # while True: #GAK JADI. Niatnya supaya User dapat sekaligus hapus banyak. 
     #     try:
     #         n=int(input(f"Banyak data yang akan dihapuskan (1-{batas}): "))
     #         if 0<n<=batas:
@@ -126,6 +126,7 @@ def Del(a):
             index=int(input(f"Pilih Index Data yang akan dihapus:\n> "))
             if 0<index<=batas:
                 break
+            print(f"Masukan Index yang tersedia (0-{batas}) ")
         except ValueError:
             print("Input tidak valid! Coba masukan ulang.")
     a.cut(index)
