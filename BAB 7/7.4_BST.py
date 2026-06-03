@@ -1,11 +1,11 @@
 def Header(a):
-    print(10*'=')
+    print(40*'=')
     print(a)
-    print(10*'=')
+    print(40*'=')
 
 def options (*a):
     while True:
-        menu=f"{10*'='}\nopsi:"
+        menu=f"{40*'='}\nopsi:"
         valid=[]
         i=1
         for argument in a:
@@ -54,25 +54,42 @@ class BST:
             current.right=Node(dataa)
     
     def search(self,curr,data,Route=""):
-        if curr==data:
+        if curr is None:
+            print(f"{data} Tidak ditemukan")
+        elif curr.data==data:
             print(f"{data} Ditemukan\n Rute: {Route} ")
             return curr
-        elif curr>data:
+        elif curr.data>data:
             New_Route=Route + "L"
             return self.search(curr.left,data,New_Route)
-        elif curr>data:
+        elif curr.data<data:
             New_Route=Route + "R"
             return self.search(curr.right,data,New_Route)
+            
         
 
     def cut(self,data):
         print (f"Mencari {data}.....")
         location=self.search(self.root,data)
+        if not location:
+            return
         print (f"Menghapus {data}.....")
-        if location.left and location.right:
-            succ=self.successor(location)
-            location.data=succ.data
-            location
+        self.root=self.DEL(self.root,data)
+
+    def DEL(self,root,data):
+        if root.data>data:
+            root.left = self.DEL(root.left,data)
+        elif root.data<data:
+            root.right = self.DEL(root.right,data)
+        else:
+            if root.left is None:
+                return root.right
+            if root.right is None:
+                return root.left
+            succ=self.successor(root)
+            root.data=succ.data
+            root.right=self.DEL(root.right,succ.data)
+        return root
 
     def successor(self,curr):
         curr=curr.right
@@ -114,6 +131,8 @@ class BST:
         return i
 
     def Traversal(self):
+        Header("Traversal")
+        self.display()
         if self.root:
             print("Preorder:")
             self.Traversal_Preorder(self.root)
@@ -127,6 +146,7 @@ class BST:
             input("(tekan Enter untuk kembali ke Menu Utama)")
         else:
             print("Data Kosong! Silahkan isi Data.")
+            input("(tekan Enter untuk kembali ke Menu Utama)")
 
     def Traversal_Preorder(self,curr):
         if curr:
@@ -136,14 +156,14 @@ class BST:
 
     def Traversal_Inorder(self,curr):
         if curr:
-            self.Traversal_Preorder(curr.left)
+            self.Traversal_Inorder(curr.left)
             print(curr,end=" ")
-            self.Traversal_Preorder(curr.right)
+            self.Traversal_Inorder(curr.right)
 
     def Traversal_Postorder(self,curr):
         if curr:
-            self.Traversal_Preorder(curr.left)
-            self.Traversal_Preorder(curr.right)
+            self.Traversal_Postorder(curr.left)
+            self.Traversal_Postorder(curr.right)
             print(curr,end=" ")
 
 def main():
@@ -179,11 +199,13 @@ def Add(a):
         while True:
             try:
                 data=int(input(f"{i+1}/{n} > "))
+                if not data=="":
+                    break
+                print("Input Kosong! Mohon masukan data untuk ditambah.")
             except ValueError:
                 print("Invalid Input! Mohon masukan bilangan bulat")
-            if not data=="":
-                break
-            print("Input Kosong! Mohon masukan data untuk ditambah.")
+            
+            
         a.add(data)
 
 def Del(root):
@@ -192,7 +214,7 @@ def Del(root):
         print("Data Kosong! Silahkan isi Data.")
         input("(tekan Enter untuk kembali ke Menu Utama)")
         return
-    Header("Hapus Data")
+    
     data=int(input("Masukkan data yg ingin ditemukan dan hapuskan : "))
     root.cut(data)
     input("(tekan Enter untuk kembali ke Menu Utama)")
@@ -206,6 +228,7 @@ def search(root):
     data=int(input("Masukkan data yg ingin ditemukan: "))
     print (f"Mencari {data}.....")
     root.search(root.root,data)
+    input("(tekan Enter untuk kembali ke Menu Utama)")
 
 
 main()
