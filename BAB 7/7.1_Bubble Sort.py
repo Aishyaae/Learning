@@ -23,8 +23,8 @@ def bubblesort_turun(data):
 
 while True:
     print("Bubble Sort ni pilih dulu yuk sebelum mulai")
-    print("1. Urutan Menaik")
-    print("2. Urutan Menurun")
+    print("1. Urutan Menaik(ascending)")
+    print("2. Urutan Menurun(descending)")
     print("3. Keluar")
     pilihan = input("Masukkan pilihan: ")
     if pilihan == "1" or pilihan == "2":
