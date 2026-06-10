@@ -76,12 +76,15 @@ def display(queue):
     for i in queue:
         print(i)
 
+
+
+
 def Code_Pasha():
     antrian=deque()
     while True:
         Header("Queue Tak Terbatas, by Pasha")
         print (status(antrian))
-        Jenis = options("Masukan data ke Queue","Keluarkan data dari Queue","Ganti Jenis Queue","Kembali")
+        Jenis = options("Masukkan data ke Queue","Keluarkan data dari Queue","Ganti Jenis Queue","Kembali")
         match Jenis:
             case 1:
                 tambah_tak_berbatas(antrian)
@@ -97,16 +100,16 @@ def tambah_tak_berbatas(a):
     Header("Menambah Data")
     while True:
         try:
-            n=int(input("Banyak Data untuk dimasukan: "))
+            n=int(input("Banyak Data untuk dimasukkan: "))
             break
         except ValueError:
-            print("\nInput tidak valid! Coba masukan ulang.\n")
+            print("\nInput tidak valid! Coba masukkan ulang.\n")
     for i in range(n):
         while True:
             data=str(input(f"{i+1}/{n}: "))
             if data!="":
                 break
-            print ("Mohon Masukan data🙏🏻")
+            print ("Mohon Masukkan data🙏🏻")
         a.append(data)
 
 def keluar_tak_berbatas(a):
@@ -129,7 +132,7 @@ def status(a):
     teks="Status:"
     j=0
     for i in a:
-        teks += f"\n{j+1}/{len(a)}  {a[j]}"
+        teks += f"\n{j+1}.\t{a[j]}"
         j+=1
     print(teks)
 
