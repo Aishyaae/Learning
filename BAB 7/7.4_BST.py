@@ -30,7 +30,6 @@ class Node:
     def __str__(self):
         return str(self.data)
 
-
 class BST:
     def __init__(self):
         self.root =None
@@ -64,9 +63,7 @@ class BST:
             return self.search(curr.left,data,New_Route)
         elif curr.data<data:
             New_Route=Route + "R"
-            return self.search(curr.right,data,New_Route)
-            
-        
+            return self.search(curr.right,data,New_Route)      
 
     def cut(self,data):
         print (f"Mencari {data}.....")
@@ -215,9 +212,12 @@ def Del(root):
         input("(tekan Enter untuk kembali ke Menu Utama)")
         return
     
-    data=int(input("Masukkan data yg ingin ditemukan dan hapuskan : "))
-    root.cut(data)
-    input("(tekan Enter untuk kembali ke Menu Utama)")
+    while True:
+        data=int(input("Masukkan data yg ingin ditemukan dan hapuskan : "))
+        input("(Biarkan input kosong untuk kembali ke Menu Utama)")
+        if data=="":
+            return
+        root.cut(data)
     
 def search(root):
     Header("Search Data")

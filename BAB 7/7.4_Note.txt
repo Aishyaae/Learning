@@ -44,6 +44,7 @@ To do.
 - link list. Multi delete
 - BST. delete function
 
-3.1 note
-dimasukkan 
-double k
+
+Terdiri dari 2 fungsi decoratif. 1 Node. 1 Main. dan 3 Fungsi utama 
+Sebelum Melihat Code dibalik fungsi" dalama program ini. 
+Saya akan langsung saja jalankan terlebih dahulu
