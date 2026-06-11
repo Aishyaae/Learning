@@ -23,10 +23,11 @@ def options (*a):
 
 def main():
     data=[]
+    sortd_data=[]
     print('\n||| Program Insertion Sort, by kelompok 5 |||')
     while True:
         Header("Menu Utama")
-        display(data)
+        display(data,sortd_data)
         pilih = options("Tambah Data","Hapus Data","Sort (Urutkan)","Tutup Program")
         match pilih:
             case 1:
@@ -34,10 +35,10 @@ def main():
             case 2:
                 Hapus(data)
             case 3:
-                Sort(data)
+                AscSort(data,sortd_data)
             case 4:
                 break
-print("Menutup Program...")
+    print("Menutup Program...")
 
 def Tambah(data):
     Header("Tambah Data")
@@ -76,30 +77,49 @@ def Hapus(data):
         if data[i]==angka:
             print(f"{angka} ditemukan\nMenghapus....")
             data.pop(i)
-    print(f"{angka} tidak ditemukan")
-    
-        
+    print(f"{angka} tidak ditemukan")     
 
-def display(data):
+def display(data,srt):
     if data:
         for i in range(len(data)):
             print(data[i],end=" ")
         print()
     else:
         print("-")
-
-def Sort(data):
-
-    if len(data)==0:
-        "Data masih Kosong!"
-        return
+    if srt:
+        print("Sorted:")
+        for i in range(len(srt)):
+            print(srt[i],end=" ")
+        print()
     
-    for i in range(1, len(data)):
-        key = data[i]
-        j = i - 1
-        while j >= 0 and key < data[j]:
-            data[j + 1] = data[j]
+def AscSort(data,srt):
+    Header("Sorting Menaik...")
+    if len(data)==0:
+        print("Data Kosong! Silahkan tambahkan data terlebih dahulu")
+        return
+    srt=data
+    for i in range(1, len(srt)):
+        for k in range(len(srt)):
+            if k==i:print(end="| ")
+            print(srt[k],end=" ")
+        print()
+        key = srt[i]
+        print("angka untuk di insert: ",key)
+        j = i-1
+        while j >= 0 and key < srt[j]:
+            srt[j + 1] = srt[j]
+            for k in range(len(srt)):
+                print(srt[k],end=" ")
+                if k==i:print(end="| ")
+            print(f"\n{key} lebih kecil dari {srt[j]}. Menggeser {srt[j]}")
             j -= 1
-        data[j + 1] = key
+        if j<0:print(f"\n{key} angka terkecil")
+        else:print(f"\n{key} akhirnya lebih besar dari {srt[j]}")
+        srt[j + 1] = key
+        for k in range(len(srt)):
+            print(srt[k],end=" ")
+            if k==i:print(end="| ")
+        input("\n(tekan ENTER untuk lanjut ke tahap berikutnya)")
+    input("(tekan Enter untuk kembali ke Menu Utama)")
 
 main()

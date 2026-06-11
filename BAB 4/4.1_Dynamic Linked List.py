@@ -27,10 +27,9 @@ class Node:
 
 def main ():
     print('\n||| Program Linked List, by kelompok 5 |||')
-    again = True
     head = None
     link_id=1
-    while again:
+    while True:
         Header("Menu Utama")
         Show(head)
         pilih = options("Link Baru","Hapus Link","Tutup Program")
@@ -58,7 +57,6 @@ def New(a,b):
     while b:
         print("test")
 
-
 def Cut ():
     pass 
 
@@ -66,4 +64,4 @@ def Cut ():
 main()
 
 
-# AGH SALAH JALAN. BIKIN FILE BARU AJA
+# GHRRR SALAH JALAN. SCREW THIS! JUST MAKE NEW FILE
