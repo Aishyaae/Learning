@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 def selection_sort(data, order="asc"):
     data = data.copy()
     n = len(data)
@@ -20,7 +19,7 @@ def selection_sort(data, order="asc"):
         nilai = data[indeks]
 
         print(f"\nLangkah {i+1}")
-        print(f"Nilai {'terkecil' if order == 'asc' else 'terbesar'} = {nilai}")
+        print("Nilai terpilih :", nilai)
 
         while indeks > i:
             data[indeks] = data[indeks - 1]
@@ -30,57 +29,37 @@ def selection_sort(data, order="asc"):
 
         print("Hasil :", data)
 
-    print(f"\nData setelah diurutkan ({'Ascending' if order == 'asc' else 'Descending'}):", data)
+    return data
 
 
-# ================= MENU TIPE DATA =================
-print("Pilih tipe data:")
-print("1. Integer")
-print("2. Float")
-print("3. String")
+# ================= INPUT =================
+input_user = input("Masukkan data campuran (pisahkan dengan spasi): ").split()
 
-pilihan = input("Masukkan pilihan (1/2/3): ")
+angka = []
+teks = []
 
-if pilihan == "1":
-    data = list(map(int, input("Masukkan data integer (pisahkan dengan spasi): ").split()))
+for item in input_user:
+    try:
+        if "." in item:
+            angka.append(float(item))
+        else:
+            angka.append(int(item))
+    except:
+        teks.append(item)
 
-elif pilihan == "2":
-    data = list(map(float, input("Masukkan data float (pisahkan dengan spasi): ").split()))
+print("\nData angka :", angka)
+print("Data string :", teks)
 
-elif pilihan == "3":
-    data = input("Masukkan data string (pisahkan dengan spasi): ").split()
+# asc
+angka_asc = selection_sort(angka, "asc")
+teks_asc = selection_sort(teks, "asc")
 
-else:
-    print("Pilihan tidak valid!")
-    exit()
+print("\nHasil akhir Ascending :")
+print(angka_asc + teks_asc)
 
-# menampilkan asc/desc
-selection_sort(data, "asc")
-selection_sort(data, "desc")
-=======
-def selection_sort(data):
-    n = len(data)
+# desc
+angka_desc = selection_sort(angka, "desc")
+teks_desc = selection_sort(teks, "desc")
 
-    print("Data awal :", data)
-
-    for i in range(n - 1):
-        indeks_min = i
-
-        for j in range(i + 1, n):
-            if data[j] < data[indeks_min]:
-                indeks_min = j
-
-        print(f"\nLangkah {i+1}")
-        print(f"Nilai terkecil ditemukan: {data[indeks_min]}")
-        print(f"Tukar {data[i]} dengan {data[indeks_min]}")
-
-        data[i], data[indeks_min] = data[indeks_min], data[i]
-
-        print("Hasil:", data)
-
-    print("\nData setelah diurutkan :", data)
-
-angka = list(map(int, input("Masukkan angka (pisahkan dengan spasi): ").split()))
-
-selection_sort(angka)
->>>>>>> e99817fef169f5613339a4c35866db6a613d2b7c
+print("\nHasil akhir Descending :")
+print(angka_desc + teks_desc)
