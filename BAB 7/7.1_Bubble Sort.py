@@ -27,11 +27,11 @@ def bubblesort_turun(data):
 data = []
 
 while True:
-    print("\n=== BUBBLE SORT ===")
+    print("BUBBLE SORT")
     print("1. Tambah Data")
     print("2. Hapus Data")
-    print("3. Urut Menaik")
-    print("4. Urut Menurun")
+    print("3. Menaik(Ascending)")
+    print("4. Menurun(Descending)")
     print("5. Tampilkan Menaik & Menurun")
     print("6. Tampilkan Data")
     print("7. Keluar")
