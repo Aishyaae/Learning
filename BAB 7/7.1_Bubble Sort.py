@@ -3,70 +3,81 @@ def bubblesort_naik(data):
         tukar = False
         for j in range(i):
             if data[j] > data[j+1]:
+                print(f"Tukar {data[j]} dengan {data[j+1]}")
                 data[j], data[j+1] = data[j+1], data[j]
                 tukar = True
-        print(data)
+                print(data)
         if not tukar:
             break
+
 
 def bubblesort_turun(data):
     for i in range(len(data)-1, -1, -1):
         tukar = False
-
         for j in range(i):
             if data[j] < data[j+1]:
+                print(f"Tukar {data[j]} dengan {data[j+1]}")
                 data[j], data[j+1] = data[j+1], data[j]
                 tukar = True
-        print(data)
+                print(data)
         if not tukar:
             break
 
-while True:
-    print("Bubble Sort ni pilih dulu yuk sebelum mulai")
-    print("1. Urutan Menaik(ascending)")
-    print("2. Urutan Menurun(descending)")
-    print("3. Keluar")
-    pilihan = input("Masukkan pilihan: ")
-    if pilihan == "1" or pilihan == "2":
-        masukan = input("Masukkan data: ")
-        if " " in masukan:
-            data = masukan.split()
-        else:
-            data = list(masukan)
 
-        if pilihan == "1":
-            bubblesort_naik(data)
-            print("Data sudah terurut!")
+data = []
+
+while True:
+    print("\n=== BUBBLE SORT ===")
+    print("1. Tambah Data")
+    print("2. Hapus Data")
+    print("3. Urut Menaik")
+    print("4. Urut Menurun")
+    print("5. Tampilkan Menaik & Menurun")
+    print("6. Tampilkan Data")
+    print("7. Keluar")
+    pilihan = input("Masukkan pilihan: ")
+
+    if pilihan == "1":
+        angka = float(input("Masukkan data: "))
+        if angka.is_integer():
+            angka = int(angka)
+        data.append(angka)
+        print("Data:", data)
+
+    elif pilihan == "2":
+        print("Data:", data)
+        hapus = float(input("Hapus data: "))
+        if hapus.is_integer():
+            hapus = int(hapus)
+        if hapus in data:
+            data.remove(hapus)
+            print("Data:", data)
         else:
-            bubblesort_turun(data)
-            print("Data sudah terurut!")
-            
-        while True:
-            print("\n1. Data Selanjutnya")
-            print("2. Kembali ke Menu Utama")
-            print("3. Keluar")
-            lanjut = input("Masukkan pilihan: ")
-            if lanjut == "1":
-                masukan = input("Masukkan data: ")
-                if " " in masukan:
-                    data = masukan.split()
-                else:
-                    data = list(masukan)
-                if pilihan == "1":
-                    bubblesort_naik(data)
-                    print("Data sudah terurut!")
-                else:
-                    bubblesort_turun(data)                    
-                    print("Data sudah terurut!")
-            elif lanjut == "2":
-                break
-            elif lanjut == "3":
-                print("Program selesai")
-                exit()
-            else:
-                print("Pilihan tidak ada")
+            print("Data tidak ditemukan")
+
     elif pilihan == "3":
+        print("Proses Bubble Sort Menaik:")
+        bubblesort_naik(data.copy())
+        print("Data sudah terurut!")
+
+    elif pilihan == "4":
+        print("Proses Bubble Sort Menurun:")
+        bubblesort_turun(data.copy())
+        print("Data sudah terurut!")
+
+    elif pilihan == "5":
+        print("Proses Bubble Sort Menaik:")
+        bubblesort_naik(data.copy())
+
+        print("\nProses Bubble Sort Menurun:")
+        bubblesort_turun(data.copy())
+
+    elif pilihan == "6":
+        print("Data saat ini:", data)
+
+    elif pilihan == "7":
         print("Program selesai")
         break
+
     else:
-        print("Pilihan tidak ada")
+        print("Pilihan tidak valid")
