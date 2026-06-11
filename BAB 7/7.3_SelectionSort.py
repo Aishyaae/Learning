@@ -56,7 +56,7 @@ else:
 # menampilkan asc/desc
 selection_sort(data, "asc")
 selection_sort(data, "desc")
-=======
+
 def selection_sort(data):
     n = len(data)
 
