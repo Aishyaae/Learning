@@ -57,14 +57,13 @@ teks_asc = selection_sort(teks, "asc")
 print("\nHasil akhir Ascending :")
 print(angka_asc + teks_asc)
 
-<<<<<<< HEAD
 # desc
 angka_desc = selection_sort(angka, "desc")
 teks_desc = selection_sort(teks, "desc")
 
 print("\nHasil akhir Descending :")
 print(angka_desc + teks_desc)
-=======
+
 # menampilkan asc/desc
 selection_sort(data, "asc")
 selection_sort(data, "desc")
@@ -94,4 +93,3 @@ def selection_sort(data):
 angka = list(map(int, input("Masukkan angka (pisahkan dengan spasi): ").split()))
 
 selection_sort(angka)
->>>>>>> 0fda9dff72b7c37aca83b0892a500940f4f95295
