@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 def selection_sort(data, order="asc"):
     data = data.copy()
     n = len(data)
@@ -83,4 +82,3 @@ def selection_sort(data):
 angka = list(map(int, input("Masukkan angka (pisahkan dengan spasi): ").split()))
 
 selection_sort(angka)
->>>>>>> e99817fef169f5613339a4c35866db6a613d2b7c
