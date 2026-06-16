@@ -33,25 +33,24 @@ class Node:
 class BST:
     def __init__(self):
         self.root =None
-
+    # Add new data
     def add(self,data):
         if not self.root:
             self.root =Node(data)
         else:
-            self.recursive(self.root,data)
-
-    def recursive(self,current,dataa):
-        if current.data > dataa:
+            self.add_recursive(self.root,data)
+    def add_recursive(self,current,new_data):
+        if current.data > new_data:
             if current.left:
-                self.recursive(current.left,dataa)
+                self.add_recursive(current.left,new_data)
                 return
-            current.left=Node(dataa)
-        elif current.data < dataa:
+            current.left=Node(new_data)
+        elif current.data < new_data:
             if current.right:
-                self.recursive(current.right,dataa)
+                self.add_recursive(current.right,new_data)
                 return
-            current.right=Node(dataa)
-    
+            current.right=Node(new_data)
+    # Search 
     def search(self,curr,data,Route=""):
         if curr is None:
             print(f"{data} Tidak ditemukan")
@@ -64,20 +63,20 @@ class BST:
         elif curr.data<data:
             New_Route=Route + "R"
             return self.search(curr.right,data,New_Route)      
-
+    # Delete
     def cut(self,data):
         print (f"Mencari {data}.....")
         location=self.search(self.root,data)
         if not location:
             return
         print (f"Menghapus {data}.....")
-        self.root=self.DEL(self.root,data)
-
-    def DEL(self,root,data):
-        if root.data>data:
-            root.left = self.DEL(root.left,data)
-        elif root.data<data:
-            root.right = self.DEL(root.right,data)
+        self.root=self.cut_recursive(self.root,data)
+    # note to self, we forgor how this cut_recursion works. thx past us for making this.
+    def cut_recursive(self,root,target_data):
+        if root.data>target_data:
+            root.left = self.cut_recursive(root.left,target_data)
+        elif root.data<target_data:
+            root.right = self.cut_recursive(root.right,target_data)
         else:
             if root.left is None:
                 return root.right
@@ -85,7 +84,7 @@ class BST:
                 return root.left
             succ=self.successor(root)
             root.data=succ.data
-            root.right=self.DEL(root.right,succ.data)
+            root.right=self.cut_recursive(root.right,succ.data)
         return root
 
     def successor(self,curr):
@@ -93,13 +92,12 @@ class BST:
         while curr.left:
             curr=curr.left
         return curr
-            
+    # The Displays    
     def display(self):
         if not self.root:
             print("-")
         else:
             self.display_recursive(self.root,first=True)
-    
     def display_recursive(self,current,prefix="",is_left=True,first=False):
         if first:
             print(current)
@@ -117,16 +115,53 @@ class BST:
             else:
                 print(new_prefix + "└── None")
     
-    def length(self):
+    def display2(self):
         if not self.root:
-            return 0
-        current=self.root
-        i=1
-        while current:
-            current=current.next
-            i+=1
-        return i
+            print("-")
+        else:
+            self.display2_recursive(self.root,first=True)
+    def display2_recursive(self,current,prefix="",is_left=True,first=False):
+        if not self.root:
+            print("-")
+        else:
+            show=self.tree_to_matrix(self.root)
+            self.print_2d_array(show)
+    def find_height_for_display2(self,root):
+        if not root:
+            return -1
 
+        left_height = self.find_height_for_display2(root.left)
+        right_height = self.find_height_for_display2(root.right)
+
+        return max(left_height, right_height) + 1 
+    def inorder_for_diplay2(self,root, row, col, height, ans):
+        if not root:
+            return
+        offset = 2 ** (height - row - 1)
+        if root.left:
+            self.inorder_for_diplay2(root.left, row + 1, col - offset, 
+                    height, ans)
+        ans[row][col] = str(root.data)
+        if root.right:
+            self.inorder_for_diplay2(root.right, row + 1, col + offset, 
+                    height, ans)
+    def tree_to_matrix(self,root):    
+        height = self.find_height_for_display2(root)
+        rows = height + 1
+        cols = 2 ** (height + 1) - 1
+        ans = [["" for _ in range(cols)] for _ in range(rows)]
+        self.inorder_for_diplay2(root, 0, (cols - 1) // 2, height, ans)
+        return ans
+    def print_2d_array(arr):
+        for row in arr:
+            for cell in row:
+                if cell == "":
+                    print(" ", end="")
+                else:
+                    print(cell, end="")
+            print()
+
+    # The Traversals
     def Traversal(self):
         Header("Traversal")
         self.display()
@@ -144,19 +179,16 @@ class BST:
         else:
             print("Data Kosong! Silahkan isi Data.")
             input("(tekan Enter untuk kembali ke Menu Utama)")
-
     def Traversal_Preorder(self,curr):
         if curr:
             print(curr,end=" ")
             self.Traversal_Preorder(curr.left)
             self.Traversal_Preorder(curr.right)
-
     def Traversal_Inorder(self,curr):
         if curr:
             self.Traversal_Inorder(curr.left)
             print(curr,end=" ")
             self.Traversal_Inorder(curr.right)
-
     def Traversal_Postorder(self,curr):
         if curr:
             self.Traversal_Postorder(curr.left)
@@ -166,10 +198,16 @@ class BST:
 def main():
     print('\n||| Program Binary Seacrh Tree, by kelompok 5 |||')
     root=BST()
+    Style=0
     while True:
         Header("Menu Utama")
-        root.display()
-        pilih = options("Tambah Data","Hapus Data","Traverse Tree","Search Data","Tutup Program")
+        match Style%2:
+            case 0:
+                root.display()
+            case 1:
+                root.display2()
+        
+        pilih = options("Tambah Data","Hapus Data","Traverse Tree","Search Data","Ganti Display","Tutup Program")
         match pilih:
             case 1:
                 Add(root)
@@ -180,6 +218,8 @@ def main():
             case 4:
                 search(root)
             case 5:
+                Style+=1
+            case 6:
                 break
     print("Menutup Program...")
     
@@ -232,3 +272,4 @@ def search(root):
 
 
 main()
+# "Take a deep breath but they couldn't"

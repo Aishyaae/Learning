@@ -24,21 +24,30 @@ def options (*a):
 def main():
     data=[]
     sortd_data=[]
+    style=0
     print('\n||| Program Insertion Sort, by kelompok 5 |||')
     while True:
         Header("Menu Utama")
-        display(data,sortd_data)
-        pilih = options("Tambah Data","Hapus Data","Sort (Menaik)","Sort (Menurun)","Tutup Program")
+        match style%2:
+            case 0:
+                display(data,sortd_data)
+            case 1:
+                display2(data,sortd_data)
+
+        
+        pilih = options("Tambah Data","Hapus Data","Sort (Menaik)","Sort (Menurun)","ganti tampilan Pohon","Tutup Program")
         match pilih:
             case 1:
                 Tambah(data)
             case 2:
                 Hapus(data)
             case 3:
-                AscSort(data,sortd_data)
+                sortd_data=AscSort(data)
             case 4:
-                DesSort(data,sortd_data)
+                sortd_data=DesSort(data)
             case 5:
+                style+=1
+            case 6:
                 break
     print("Menutup Program...")
 
@@ -53,13 +62,19 @@ def Tambah(data):
     print("masukkan data yg ingin ditambahkan: ")
     for i in range(n):
         while True:
-            try:
-                angka=int(input(f"{i+1}/{n} > "))
-                if not angka=="":
-                    break
-                print("Input Kosong! Mohon masukan angka untuk ditambah.")
-            except ValueError:
-                print("Invalid Input! Mohon masukan bilangan bulat")
+            angka=(input(f"{i+1}/{n} > "))
+            angka=angka.strip()
+            if not angka=="":
+                try:
+                    angka=int(angka)
+                except ValueError:
+                    try:
+                        angka=float(angka)
+                    except ValueError:
+                        pass
+                break
+            print("Input Kosong! Mohon masukan angka untuk ditambah.")
+            
         data.append(angka)
 
 def Hapus(data):
@@ -70,7 +85,8 @@ def Hapus(data):
         return
     while True:
         try:
-            angka=int(input("masukkan data yg ingin dihapuskan: "))
+            angka=(input("masukkan data yg ingin dihapuskan: "))
+            angka=angka.strip()
             if not angka=="":
                 break
             print("Input Kosong! Mohon masukan angka untuk ditambah.")
@@ -81,7 +97,9 @@ def Hapus(data):
         if data[i]==angka:
             print(f"{angka} ditemukan\nMenghapus....")
             data.pop(i)
-    print(f"{angka} tidak ditemukan")     
+            break
+        print(f"{angka} tidak ditemukan")     
+    input("(tekan Enter untuk kembali ke Menu Utama)")
 
 def display(data,srt):
     if data:
@@ -95,13 +113,16 @@ def display(data,srt):
         for i in range(len(srt)):
             print(srt[i],end=" ")
         print()
-    
-def AscSort(data,srt):
+
+def display2(data,srt): 
+    pass
+
+def AscSort(data):
     Header("Sorting Menaik...")
     if len(data)==0:
         print("Data Kosong! Silahkan tambahkan data terlebih dahulu")
         return
-    srt=data
+    srt=data.copy()
     for i in range(1, len(srt)):
         for k in range(len(srt)):
             if k==i:print(end="| ")
@@ -125,14 +146,15 @@ def AscSort(data,srt):
             if k==i:print(end="| ")
         input("\n(tekan ENTER untuk lanjut ke tahap berikutnya)")
         print("|||||||")
-    input("(tekan Enter untuk kembali ke Menu Utama)")
+    input("Sudah Selesai💜\n(tekan Enter untuk kembali ke Menu Utama)")
+    return srt
    
-def DesSort(data,srt):
+def DesSort(data):
     Header("Sorting Menaik...")
     if len(data)==0:
         print("Data Kosong! Silahkan tambahkan data terlebih dahulu")
         return
-    srt=data
+    srt=data.copy()
     for i in range(1, len(srt)):
         for k in range(len(srt)):
             if k==i:print(end="| ")
@@ -156,6 +178,7 @@ def DesSort(data,srt):
             if k==i:print(end="| ")
         input("\n(tekan ENTER untuk lanjut ke tahap berikutnya)")
         print("|||||||")
-    input("(tekan Enter untuk kembali ke Menu Utama)")
+    input("Sudah Selesai💜\n(tekan Enter untuk kembali ke Menu Utama)")
+    return srt
 
 main()

@@ -19,17 +19,7 @@ Until key is bigger then what's on the left or get to the leftmost side of the a
 seperti Program lainnya ada Header dan Option. sudah dijelaskan, langsung ke Node.
 Class Node ini berfungsi sebagai 
 
-Class BST,
-Mengandung Seluruh fungsi yang akan dibutuhkan.
 
-add
-
-search
-
-cut
-
-Traversals,
-curr (kependekan dari Current) akan digunakan
 
 
 
