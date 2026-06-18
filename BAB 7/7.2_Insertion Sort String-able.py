@@ -23,6 +23,7 @@ def options (*a):
 
 def main():
     data=[]
+    # was trying to make the sorted array different, let original array untouched. i can't
     sortd_data=[]
     style=0
     print('\n||| Program Insertion Sort, by kelompok 5 |||')
@@ -35,19 +36,23 @@ def main():
                 display2(data,sortd_data)
 
         
-        pilih = options("Tambah Data","Hapus Data","Sort (Menaik)","Sort (Menurun)","ganti tampilan Pohon","Tutup Program")
+        pilih = options("Tambah Data","Hapus Data","Sort (Menaik)","Sort (Menurun)","Sort (Keduanya)","ganti tampilan","Tutup Program")
         match pilih:
             case 1:
                 Tambah(data)
             case 2:
                 Hapus(data)
             case 3:
-                sortd_data=AscSort(data)
+                data=AscSort(data)
             case 4:
-                sortd_data=DesSort(data)
+                data=DesSort(data)
             case 5:
-                style+=1
+                data=AscSort(data)
+                display(data)
+                data=DesSort(data)
             case 6:
+                style+=1
+            case 7:
                 break
     print("Menutup Program...")
 
@@ -92,13 +97,14 @@ def Hapus(data):
             print("Input Kosong! Mohon masukan angka untuk ditambah.")
         except ValueError:
             print("Invalid Input! Mohon masukan bilangan bulat")
-    
+    not_found=True
     for i in range(len(data)):
         if data[i]==angka:
             print(f"{angka} ditemukan\nMenghapus....")
             data.pop(i)
+            not_found=False
             break
-        print(f"{angka} tidak ditemukan")     
+    if not_found:print(f"{angka} tidak ditemukan")     
     input("(tekan Enter untuk kembali ke Menu Utama)")
 
 def display(data,srt):
@@ -115,12 +121,23 @@ def display(data,srt):
         print()
 
 def display2(data,srt): 
-    pass
+    if data:
+        for i in range(len(data)):
+            print(data[i],end=" > ")
+        print()
+    else:
+        print("-")
+    if srt:
+        print("Last Sorted:")
+        for i in range(len(srt)):
+            print(srt[i],end=" ")
+        print()
 
 def AscSort(data):
     Header("Sorting Menaik...")
     if len(data)==0:
         print("Data Kosong! Silahkan tambahkan data terlebih dahulu")
+        input("(tekan Enter untuk kembali ke Menu Utama)")
         return
     srt=data.copy()
     for i in range(1, len(srt)):
@@ -129,9 +146,29 @@ def AscSort(data):
             print(srt[k],end=" ")
         print()
         key = srt[i]
-        print("angka untuk di insert: ",key)
+        print("data untuk di insert: ",key)
         j = i-1
-        while j >= 0 and key < srt[j]:
+        key_smaller=False
+        try:
+            if key < srt[j]:key_smaller=True
+            else:key_smaller=False
+        except TypeError:
+            try:
+                if isinstance(srt[j],str):key_smaller=False
+                else:key_smaller=True
+            except TypeError or ValueError:
+                print("Debugging")
+
+        while j >= 0 and key_smaller:
+            try:
+                if key < srt[j]:key_smaller=True
+                else:key_smaller=False
+            except TypeError:
+                try:
+                    if isinstance(srt[j],str):key_smaller=False
+                    else:key_smaller=True
+                except TypeError or ValueError:
+                    print("Debugging")
             srt[j + 1] = srt[j]
             for k in range(len(srt)):
                 print(srt[k],end=" ")
@@ -146,13 +183,14 @@ def AscSort(data):
             if k==i:print(end="| ")
         input("\n(tekan ENTER untuk lanjut ke tahap berikutnya)")
         print("|||||||")
-    input("Sudah Selesai💜\n(tekan Enter untuk kembali ke Menu Utama)")
+    input("Sudah Selesai💜\n(tekan Enter untuk Lanjut)")
     return srt
    
 def DesSort(data):
     Header("Sorting Menaik...")
     if len(data)==0:
         print("Data Kosong! Silahkan tambahkan data terlebih dahulu")
+        input("(tekan Enter untuk kembali ke Menu Utama)")
         return
     srt=data.copy()
     for i in range(1, len(srt)):
@@ -163,7 +201,26 @@ def DesSort(data):
         key = srt[i]
         print("angka untuk di insert: ",key)
         j = i-1
-        while j >= 0 and key > srt[j]:
+        key_bigger=False
+        try:
+            if key > srt[j]:key_bigger=True
+            else:key_bigger=False
+        except TypeError:
+            try:
+                if isinstance(srt[j],str):key_bigger=True
+                else:key_bigger=False
+            except TypeError or ValueError:
+                print("Debugging")
+        while j >= 0 and key_bigger:
+            try:
+                if key > srt[j]:key_bigger=True
+                else:key_bigger=False
+            except TypeError:
+                try:
+                    if isinstance(srt[j],str):key_bigger=True
+                    else:key_bigger=False
+                except TypeError or ValueError:
+                    print("Debugging")
             srt[j + 1] = srt[j]
             for k in range(len(srt)):
                 print(srt[k],end=" ")

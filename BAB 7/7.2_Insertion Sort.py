@@ -28,17 +28,21 @@ def main():
     while True:
         Header("Menu Utama")
         display(data,sortd_data)
-        pilih = options("Tambah Data","Hapus Data","Sort (Menaik)","Sort (Menurun)","Tutup Program")
+        pilih = options("Tambah Data","Hapus Data","Sort (Menaik)","Sort (Menurun)","Sort (Keduanya)","Tutup Program")
         match pilih:
             case 1:
                 Tambah(data)
             case 2:
                 Hapus(data)
             case 3:
-                AscSort(data,sortd_data)
+                sortd_data=AscSort(data,sortd_data)
             case 4:
-                DesSort(data,sortd_data)
+                sortd_data=DesSort(data,sortd_data)
             case 5:
+                sortd_data=AscSort(data,sortd_data)
+                print()
+                sortd_data=DesSort(data,sortd_data)
+            case 6:
                 break
     print("Menutup Program...")
 
@@ -100,6 +104,7 @@ def AscSort(data,srt):
     Header("Sorting Menaik...")
     if len(data)==0:
         print("Data Kosong! Silahkan tambahkan data terlebih dahulu")
+        input("(tekan Enter untuk kembali ke Menu Utama)")
         return
     srt=data
     for i in range(1, len(srt)):
@@ -112,6 +117,7 @@ def AscSort(data,srt):
         j = i-1
         while j >= 0 and key < srt[j]:
             srt[j + 1] = srt[j]
+            # srt[j] # NANTI
             for k in range(len(srt)):
                 print(srt[k],end=" ")
                 if k==i:print(end="| ")
@@ -126,11 +132,13 @@ def AscSort(data,srt):
         input("\n(tekan ENTER untuk lanjut ke tahap berikutnya)")
         print("|||||||")
     input("(tekan Enter untuk kembali ke Menu Utama)")
+    return srt
    
 def DesSort(data,srt):
     Header("Sorting Menaik...")
     if len(data)==0:
         print("Data Kosong! Silahkan tambahkan data terlebih dahulu")
+        input("(tekan Enter untuk kembali ke Menu Utama)")
         return
     srt=data
     for i in range(1, len(srt)):
@@ -157,5 +165,6 @@ def DesSort(data,srt):
         input("\n(tekan ENTER untuk lanjut ke tahap berikutnya)")
         print("|||||||")
     input("(tekan Enter untuk kembali ke Menu Utama)")
+    return srt
 
 main()

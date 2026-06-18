@@ -1,4 +1,3 @@
-import time
 def Header(a):
     print(40*'=')
     print(a)
@@ -21,15 +20,6 @@ def options (*a):
         except ValueError:
             print("Input TIDAK VALID! Coba masukan ulang.")
     return pilihan
-
-def dotdotdot():
-    time.sleep(0.3)
-    print(".",end="")
-    time.sleep(0.3)
-    print("\r..",end="")
-    time.sleep(0.3)
-    print("\r...")
-    time.sleep(0.3)
 
 class Node:
     def __init__(self,data):
@@ -125,6 +115,52 @@ class BST:
             else:
                 print(new_prefix + "└── None")
     
+    def display2(self):
+        if not self.root:
+            print("-")
+        else:
+            self.display2_recursive(self.root,first=True)
+    def display2_recursive(self,current,prefix="",is_left=True,first=False):
+        if not self.root:
+            print("-")
+        else:
+            show=self.tree_to_matrix(self.root)
+            self.print_2d_array(show)
+    def find_height_for_display2(self,root):
+        if not root:
+            return -1
+
+        left_height = self.find_height_for_display2(root.left)
+        right_height = self.find_height_for_display2(root.right)
+
+        return max(left_height, right_height) + 1 
+    def inorder_for_diplay2(self,root, row, col, height, ans):
+        if not root:
+            return
+        offset = 2 ** (height - row - 1)
+        if root.left:
+            self.inorder_for_diplay2(root.left, row + 1, col - offset, 
+                    height, ans)
+        ans[row][col] = str(root.data)
+        if root.right:
+            self.inorder_for_diplay2(root.right, row + 1, col + offset, 
+                    height, ans)
+    def tree_to_matrix(self,root):    
+        height = self.find_height_for_display2(root)
+        rows = height + 1
+        cols = 2 ** (height + 1) - 1
+        ans = [["" for _ in range(cols)] for _ in range(rows)]
+        self.inorder_for_diplay2(root, 0, (cols - 1) // 2, height, ans)
+        return ans
+    def print_2d_array(arr):
+        for row in arr:
+            for cell in row:
+                if cell == "":
+                    print(" ", end="")
+                else:
+                    print(cell, end="")
+            print()
+
     # The Traversals
     def Traversal(self):
         Header("Traversal")
@@ -169,7 +205,7 @@ def main():
             case 0:
                 root.display()
             case 1:
-                display2(root.root)
+                root.display2()
         
         pilih = options("Tambah Data","Hapus Data","Traverse Tree","Search Data","Ganti Display","Tutup Program")
         match pilih:
@@ -191,13 +227,10 @@ def Add(a):
     Header("Tambah Data")
     while True:
         try:
-            n=int(input("Jumlah data baru yang akan ditambahkan: ")) 
-            if n<0:print("Mohon masukan jumlah yang positif! ")
-            elif n==0:print("jumlah 0, membatalkan penambahan data...")
-            else:break
+            n=int(input("Banyak data baru yang akan ditambahkan: ")) 
+            break
         except ValueError:
             print("Input TIDAK VALID! Coba masukan ulang.")
-    
     print("masukkan data yg ingin ditambahkan: ")
     for i in range(n):
         while True:
@@ -220,17 +253,11 @@ def Del(root):
         return
     
     while True:
-        z=input("Masukkan data yg ingin ditemukan dan hapuskan : ")
-        try:
-            data=int(z)
-            root.cut(data)
-            print("(Biarkan input kosong untuk kembali ke Menu Utama)")
-        except ValueError:
-            if z.strip()=="":
-                print("input kosong, kembali ke menu utama")
-                dotdotdot()
-                return
-            print("Mohon masukan Bilangan Bulat atau kosongkan input! Silahkan coba lagi..")
+        data=int(input("Masukkan data yg ingin ditemukan dan hapuskan : "))
+        input("(Biarkan input kosong untuk kembali ke Menu Utama)")
+        if data=="":
+            return
+        root.cut(data)
     
 def search(root):
     Header("Search Data")
@@ -243,45 +270,6 @@ def search(root):
     root.search(root.root,data)
     input("(tekan Enter untuk kembali ke Menu Utama)")
 
-def display2(root):
-    if not root:
-        print("-")
-    else:
-        show=tree_to_matrix(root)
-        print_2d_array(show)
-def find_height_for_display2(root):
-    if not root:
-        return -1
 
-    left_height = find_height_for_display2(root.left)
-    right_height = find_height_for_display2(root.right)
-
-    return max(left_height, right_height) + 1 
-def inorder_for_diplay2(root, row, col, height, ans):
-    if not root:
-        return
-    offset = 2 ** (height - row - 1)
-    if root.left:
-        inorder_for_diplay2(root.left, row + 1, col - offset, 
-                height, ans)
-    ans[row][col] = str(root.data)
-    if root.right:
-        inorder_for_diplay2(root.right, row + 1, col + offset, 
-                height, ans)
-def tree_to_matrix(root):    
-    height = find_height_for_display2(root)
-    rows = height + 1
-    cols = 2 ** (height + 1) - 1
-    ans = [["" for _ in range(cols)] for _ in range(rows)]
-    inorder_for_diplay2(root, 0, (cols - 1) // 2, height, ans)
-    return ans
-def print_2d_array(arr):
-    for row in arr:
-        for cell in row:
-            if cell == "":
-                print(" ", end="")
-            else:
-                print(cell, end="")
-        print()
 main()
 # "Take a deep breath but they couldn't"
